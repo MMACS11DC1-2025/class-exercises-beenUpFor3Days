@@ -1,4 +1,4 @@
-""
+"""
 Create a program that uses counting and comparison operators (< > <= >=).
 You must use the class' datafile, 'responses.csv' and analyze it
     to make at least 2 interesting observations.
@@ -7,4 +7,14 @@ You must design your algorithm in English first, then translate it to Python cod
 Test as you go! Describe in your comments what steps you took to test your code.
 """
 
+file = open("2.4/responses.csv")
+file.readline()
+data = file.readlines()
 
+print("This code finds 2 peoples favoutite sport and pet")
+personA = input("First persons name").lower()
+Asport = none
+Apet = none
+
+for file in data:
+    info = file.strip().spit(,)
