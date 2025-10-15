@@ -87,3 +87,9 @@ elif Apet == Bpet:
 
 else:
     print("Both people dont have the same pet or play the same sport")#tried each if statement
+
+"""This code finds 2 people's favoutite sport and pet
+First person's name daichi lee
+Second person's name theo shim
+daichi lee's favourite digit is bigger than theo shim's
+Both people like the same pet: Cat"""
