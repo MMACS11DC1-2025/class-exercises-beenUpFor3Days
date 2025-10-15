@@ -87,9 +87,3 @@ elif Apet == Bpet:
 
 else:
     print("Both people dont have the same pet or play the same sport")#tried each if statement
-
-
-
-
-
-
