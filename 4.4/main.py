@@ -27,7 +27,7 @@ def drawTree(t, level, branchLength):
 
   else:
     t.pencolor(colour2)
-    t.dot(6)
+    t.dot(10)
     t.pencolor(colour1)
     
 pen.speed(0)
@@ -41,8 +41,14 @@ branchLength = float(input("How long do you want each branch to be. (default is 
 
 if levels < 1:
   levels = 1
-if branchLength < 10:
-  branchLength = 10
+elif levels >8:
+  levels = 8
+  
+if branchLength < 8:
+  branchLength = 8
+elif branchLength >67:
+  branchLength = 67
+  
 
 colour1 = input("What colour do you want your branch to be. (default is brown) ") or SETTINGS["branchColour"]
 colour2 = input("What colour do you want the leaves to be. (default is green) ") or SETTINGS["leafColour"]
