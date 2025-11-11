@@ -1,5 +1,6 @@
 import turtle
 
+#make a dictionary with variables in it
 SETTINGS = {
     "branchLength": 67.41,
     "levels": 3,
@@ -7,14 +8,20 @@ SETTINGS = {
     "leafColour": "green"
 }
 
+#make pen into turtle.turle and make the pen width
 pen = turtle.Turtle()
 pen.width(4.1)
 
+#recursicve function that draws the tree
+#t is the turtle 
+#levels is how many to draw
+#branch length is the starting length of the branch
 def drawTree(t, level, branchLength):
   if level > 0:
-    t.pencolor(colour1)
-    t.forward(branchLength)
+    t.pencolor(colour1)#changes pen colour
+    t.forward(branchLength)#moves forward
 
+    #turns left and makes a branch
     t.left(21)
     leftCalls = drawTree(t, level - 1, branchLength / 1.67)
     t.right(21)
@@ -24,40 +31,46 @@ def drawTree(t, level, branchLength):
     t.left(21)
 
     t.backward(branchLength)
-    return 1 + leftCalls + rightCalls
+    return 1 + leftCalls + rightCalls #add all the calls made to the left and right branches
   else:
-    t.pencolor(colour2)
-    t.dot(10)
-    t.pencolor(colour1)
+    t.pencolor(colour2)#changes leaf colour
+    t.dot(10)#leaf size
+    t.pencolor(colour1)#changes pen colour back
     return 1 
     
-pen.speed(0)
-pen.penup()
+pen.speed(0)#pen speed  
+pen.penup()#
 pen.goto(0, -180)
 pen.left(90)
 pen.pendown()
 
+#gets user input for amout of levels
 levels = int(input("How many levels do you want me to draw. (default is 3) ") or SETTINGS["levels"])
+#gets user input for branch length
 branchLength = float(input("How long do you want each branch to be. (default is 67.41) ") or SETTINGS["branchLength"])
 
+#if the inpout leves is too big it will cap it or too small
 if levels < 1:
   levels = 1
 elif levels >8:
   levels = 8
   
+#make a minimum and max for branch length
 if branchLength < 8:
   branchLength = 8
-elif branchLength >67:
-  branchLength = 67
+elif branchLength >100:
+  branchLength = 100
   
-
+#ask user for branch and leaf colour
 colour1 = input("What colour do you want your branch to be. (default is brown) ") or SETTINGS["branchColour"]
 colour2 = input("What colour do you want the leaves to be. (default is green) ") or SETTINGS["leafColour"]
 
+#call recursive function
 totalCalls = drawTree(pen, levels, branchLength)
 
-print("Total recursive calls is", totalCalls)
+#print total recurvive calls
+print("total recursive calls is", totalCalls)
 
 
-pen.hideturtle()
+pen.hideturtle()#hides cyursor so you can just see the tree
 turtle.done()
