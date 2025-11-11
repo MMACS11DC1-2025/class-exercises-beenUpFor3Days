@@ -16,19 +16,20 @@ def drawTree(t, level, branchLength):
     t.forward(branchLength)
 
     t.left(21)
-    drawTree(t, level - 1, branchLength / 1.67)
+    leftCalls = drawTree(t, level - 1, branchLength / 1.67)
     t.right(21)
 
     t.right(21)
-    drawTree(t, level - 1, branchLength / 1.67)
+    rightCalls = drawTree(t, level - 1, branchLength / 1.67)
     t.left(21)
 
     t.backward(branchLength)
-
+    return 1 + leftCalls + rightCalls
   else:
     t.pencolor(colour2)
     t.dot(10)
     t.pencolor(colour1)
+    return 1 
     
 pen.speed(0)
 pen.penup()
@@ -53,6 +54,10 @@ elif branchLength >67:
 colour1 = input("What colour do you want your branch to be. (default is brown) ") or SETTINGS["branchColour"]
 colour2 = input("What colour do you want the leaves to be. (default is green) ") or SETTINGS["leafColour"]
 
-drawTree(pen, levels, branchLength)
+totalCalls = drawTree(pen, levels, branchLength)
+
+print("Total recursive calls is", totalCalls)
+
+
 pen.hideturtle()
 turtle.done()
