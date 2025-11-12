@@ -23,8 +23,8 @@ You'll create a fractal generator that can draw at least one recursive pattern (
 ### **ESSENTIAL REQUIREMENTS** (2 points each)
 
 ### **Core Programming Concepts**
-- [ ] At least one recursive function defined with proper parameters (2 pts)
-- [ ] Proper base case implemented to stop recursion (2 pts)
+- [] At least one recursive function defined with proper parameters (2 pts)
+- [] Proper base case implemented to stop recursion (2 pts)
 - [ ] Recursive calls reduce problem size toward base case (2 pts)
 - [ ] Function returns meaningful values (not just drawing) (2 pts)
 - [ ] At least one user input to dynamically generate graphics (2 pts)

@@ -1,3 +1,6 @@
+#recursive tree
+#uses turtle and users inputs to make a tree
+#prints tree and total recursive calls
 import turtle
 
 #make a dictionary with variables in it
