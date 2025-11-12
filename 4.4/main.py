@@ -10,7 +10,6 @@ SETTINGS = {
     "branchColour": "brown",
     "leafColour": "green"
 }
-
 #make pen into turtle.turle and make the pen width
 pen = turtle.Turtle()
 pen.width(4.1)
@@ -30,12 +29,12 @@ def drawTree(t, level, branchLength, colour1, colour2):
     #has 2 return values
     leftCalls, leftLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
 
-    t.right(41)
+    t.right(42)
     #two return values from the right branch
     rightCalls, rightLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
 
     t.left(21)
-    t.backward(branchLength)
+    t.backward(branchLength)#goes back to original point
 
     return calls + leftCalls + rightCalls, leftLeaves + rightLeaves
   else:
@@ -47,7 +46,7 @@ def drawTree(t, level, branchLength, colour1, colour2):
     
 pen.speed(0)#pen speed  
 pen.penup()
-pen.goto(0, -180)
+pen.goto(0, -180)#starting point
 pen.left(90)
 pen.pendown()
 
@@ -74,10 +73,8 @@ colour2 = input("What colour do you want the leaves to be. (default is green) ")
 
 #call recursive function
 totalCalls, totalLeaves = drawTree(pen, levels, branchLength, colour1, colour2)
-
 #print total recurvive calls
 print("total recursive calls is", totalCalls)
-
 print("total leaves is ", totalLeaves)
 pen.hideturtle()#hides cyursor so you can just see the tree
 turtle.done()
