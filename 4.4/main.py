@@ -38,7 +38,7 @@ def drawTree(t, level, branchLength, colour1, colour2):
 
     return calls + leftCalls + rightCalls, leftLeaves + rightLeaves
   else:
-    t.pencolor(colour2)  # CHANGE: use leaf color passed in as a parameter
+    t.pencolor(colour2) 
     t.dot(10)
     t.pencolor(colour1)
     # CHANGE: base case returns (calls, 1 leaf)
