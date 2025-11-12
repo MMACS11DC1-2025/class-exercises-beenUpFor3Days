@@ -19,30 +19,34 @@ pen.width(4.1)
 #t is the turtle 
 #levels is how many to draw
 #branch length is the starting length of the branch
-def drawTree(t, level, branchLength):
+
+def drawTree(t, level, branchLength, colour1, colour2):
+  calls = 1  # counts this call
   if level > 0:
     t.pencolor(colour1)#changes pen colour
-    t.forward(branchLength)#moves forward
+    t.forward(branchLength)#uses user input for first length
 
-    #turns left and makes a branch
     t.left(21)
-    leftCalls = drawTree(t, level - 1, branchLength / 1.67)
-    t.right(21)
+    #has 2 return values
+    leftCalls, leftLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
 
-    t.right(21)
-    rightCalls = drawTree(t, level - 1, branchLength / 1.67)
+    t.right(42)
+    #two return values from the right branch
+    rightCalls, rightLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
+
     t.left(21)
-
     t.backward(branchLength)
-    return 1 + leftCalls + rightCalls #add all the calls made to the left and right branches
+
+    return calls + leftCalls + rightCalls, leftLeaves + rightLeaves
   else:
-    t.pencolor(colour2)#changes leaf colour
-    t.dot(10)#leaf size
-    t.pencolor(colour1)#changes pen colour back
-    return 1 
+    t.pencolor(colour2)  # CHANGE: use leaf color passed in as a parameter
+    t.dot(10)
+    t.pencolor(colour1)
+    # CHANGE: base case returns (calls, 1 leaf)
+    return calls, 1
     
 pen.speed(0)#pen speed  
-pen.penup()#
+pen.penup()
 pen.goto(0, -180)
 pen.left(90)
 pen.pendown()
@@ -69,11 +73,11 @@ colour1 = input("What colour do you want your branch to be. (default is brown) "
 colour2 = input("What colour do you want the leaves to be. (default is green) ") or SETTINGS["leafColour"]
 
 #call recursive function
-totalCalls = drawTree(pen, levels, branchLength)
+totalCalls, totalLeaves = drawTree(pen, levels, branchLength, colour1, colour2)
 
 #print total recurvive calls
 print("total recursive calls is", totalCalls)
 
-
+print("total leaves is ", totalLeaves)
 pen.hideturtle()#hides cyursor so you can just see the tree
 turtle.done()
