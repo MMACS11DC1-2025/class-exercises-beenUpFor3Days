@@ -30,7 +30,7 @@ def drawTree(t, level, branchLength, colour1, colour2):
     #has 2 return values
     leftCalls, leftLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
 
-    t.right(42)
+    t.right(41)
     #two return values from the right branch
     rightCalls, rightLeaves = drawTree(t, level - 1, branchLength / 1.67, colour1, colour2)
 
