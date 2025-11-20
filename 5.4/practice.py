@@ -1,7 +1,7 @@
 from PIL import Image
 
 def is_yellow(r,g,b):
-    if r > 150 and g > 150 and b < 150:
+    if r < 40 and g > 90 and b < 10:
         return True
     return False
 
@@ -20,3 +20,5 @@ for i in range(width):
             image_output.putpixel((i, j), (255, 255, 255))
 
 image_output.save("newBeans.png", "png")
+
+holy hair holy hair holy hair
