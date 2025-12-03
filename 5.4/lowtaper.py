@@ -1,13 +1,13 @@
 import time
 from PIL import Image
 t0 = time.time()
-file = Image.open("5.5/lowtaper.gif")
+file = Image.open("5.4/jelly_beans.jpg")
 jbimg = file.load()
 
 width = file.width
 height = file.height
 
-black = 0
+yellow_pixels = 0
 
 for i in range(width):
     for j in range(height):

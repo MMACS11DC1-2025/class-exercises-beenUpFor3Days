@@ -5,6 +5,8 @@ def is_yellow(r,g,b):
         return True
     return False
 
+def is_
+
 image = Image.open("5.4/jelly_beans.jpg").load()
 image_output = Image.open("5.4/jelly_beans.jpg")
 width = image_output.width
@@ -20,5 +22,3 @@ for i in range(width):
             image_output.putpixel((i, j), (255, 255, 255))
 
 image_output.save("newBeans.png", "png")
-
-holy hair holy hair holy hair
