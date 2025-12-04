@@ -8,3 +8,20 @@ exercises to include calculations, if you wish.
 Remember to design your algorithm in English first, then translate it to Python 
 code. Test as you go!
 """
+
+print("this calculates + and - of 2 numbers")
+print("enter first number")
+numberOne = input()
+print("enter seccond number")
+numberTwo = input()
+print("chose + or -")
+operation = input()
+
+if operation == "-":
+    calc = float(numberOne) - float(numberTwo)
+    print(str(calc))
+elif operation == "+":
+    calc = float(numberOne) + float(numberTwo)
+    print(str(calc))
+else:
+    print("invalid")
