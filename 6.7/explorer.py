@@ -9,26 +9,31 @@ image_files = [
     "sky3.jpg",
 ]
 
-def is_sky(pixel):
+def is_target_feature(pixel):
     r, g, b = pixel
-    return b >= 120 and b >= r + 20 and b >= g + 20 and r <= 220 and g <= 220
+    if b >= 120 and b >= r + 20 and b >= g + 20 and r <= 220 and g <= 220:
+        return True
+    else:
+        return False
 
-def selection_sort(scores):
-    n = len(scores)
+def selection_sort(data):
+    n = len(data)
     for i in range(n):
-        largest_index = i
+        max_index = i
         for j in range(i + 1, n):
-            if scores[j][1] > scores[largest_index][1]:
-                largest_index = j
-        scores[i], scores[largest_index] = scores[largest_index], scores[i]
+            if data[j][1] > data[max_index][1]:
+                max_index = j
+        temp = data[i]
+        data[i] = data[max_index]
+        data[max_index] = temp
 
-def binary_search(scores, target, tol):
+def binary_search(data, target):
     first = 0
-    last = len(scores) - 1
+    last = len(data) - 1
     while first <= last:
         mid = (first + last) // 2
-        value = scores[mid][1]
-        if abs(value - target) <= tol:
+        value = data[mid][1]
+        if value == target:
             return mid
         elif value < target:
             last = mid - 1
@@ -38,39 +43,46 @@ def binary_search(scores, target, tol):
 
 image_scores = []
 
-start = time.time()
+start_time = time.time()
 
-for img in image_files:
-    print("Processing:", img)
-    image = Image.open(f"{folder}/{img}")
-    image = image.convert("RGB")
-    width, height = image.size
+for filename in image_files:
+    print("Processing:", filename)
+    img = Image.open(folder + "/" + filename)
+    pixels = img.load()
+    width, height = img.size
     total_pixels = width * height
     sky_pixels = 0
+
     for x in range(width):
         for y in range(height):
-            r, g, b = image.getpixel((x, y))
-            if is_sky((r, g, b)):
+            r = pixels[x, y][0]
+            g = pixels[x, y][1]
+            b = pixels[x, y][2]
+            if is_target_feature((r, g, b)):
                 sky_pixels += 1
-    sky_percent = sky_pixels / total_pixels * 100
-    image_scores.append([img, sky_percent])
 
-end = time.time()
-print(f"\nProcessing time: {end - start:.3f} seconds")
+    sky_percent = (sky_pixels * 100) // total_pixels
+    image_scores.append([filename, sky_percent])
+
+end_time = time.time()
+elapsed = end_time - start_time
+print("\nProcessing time: {:.3f} seconds".format(elapsed))
 
 selection_sort(image_scores)
 
 top5 = image_scores[:5]
 print("\nTop images (clearest sky first):")
-for name, percent in top5:
-    print(name, ":", round(percent, 2), "% is sky")
+for item in top5:
+    name = item[0]
+    percent = item[1]
+    print("{} : {}% sky".format(name, percent))
 
-query = input("\nEnter sky % to find (or press Enter to skip): ")
-if query != "":
-    target = float(query)
-    index = binary_search(image_scores, target, 0.01)
+answer = input("\nEnter sky % to search for (exact integer shown, or press Enter to skip): ")
+if answer != "":
+    target = int(answer)
+    index = binary_search(image_scores, target)
     if index != -1:
-        name, percent = image_scores[index]
-        print("Found:", name, "-", round(percent, 2), "% sky")
+        result = image_scores[index]
+        print("Found: {} with {}% sky".format(result[0], result[1]))
     else:
         print("No match")
