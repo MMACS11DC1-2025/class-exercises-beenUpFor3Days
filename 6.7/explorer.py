@@ -1,21 +1,24 @@
 from PIL import Image
 import time
 
-file = open("6.7/sky1.jpg")
-file = open("6.7/sky2.jpg")
-file = open("6.7/sky3.jpg")
+folder = "6.7"
+
+image_files = [
+    "Sky1.jpg",
+    "sky2.jpg",
+    "sky3.jpg",
+]
 
 def is_sky(pixel):
     r, g, b = pixel
     # Simple thresholds for clear blue sky:
-    # - blue channel is dominant
-    # - blue is bright enough
-    # - red and green not too strong compared to blue
+    # - blue is fairly bright
+    # - blue is clearly higher than red and green
     if (
-        b >= 120 and              # fairly bright blue
-        b >= r + 20 and           # blue clearly higher than red
-        b >= g + 20 and           # blue clearly higher than green
-        r <= 220 and g <= 220     # avoid overexposed white
+        b >= 120 and
+        b >= r + 20 and
+        b >= g + 20 and
+        r <= 220 and g <= 220
     ):
         return True
     else:
@@ -30,15 +33,15 @@ start = time.time()
 # loop through images
 for img in image_files:
     print("Processing:", img)
-    
-    # Open the image
+
+    # open the image
     image = Image.open(f"{folder}/{img}")
     image = image.convert("RGB")
     width, height = image.size
     total_pixels = width * height
     sky_pixel_count = 0
 
-    # Count the sky pixels
+    # count the sky pixels
     for x in range(width):
         for y in range(height):
             r, g, b = image.getpixel((x, y))
@@ -52,7 +55,7 @@ for img in image_files:
 end = time.time()
 print(f"\nProcessing time: {end - start:.3f} seconds")
 
-# Selection Sort to sort images by sky % (descending: clearest sky first)
+# selection sort by sky % (descending)
 for i in range(len(image_scores)):
     largest_score = image_scores[i][1]
     largest_index = i
@@ -67,7 +70,7 @@ print("\nTop images (clearest sky first):")
 for i in range(min(5, len(image_scores))):
     print(image_scores[i][0], "-", round(image_scores[i][1], 2), "% sky")
 
-# Binary Search for user-input sky %
+# binary search for user-input sky %
 query = input("\nEnter sky % to find (or skip): ")
 if query != "":
     target = float(query)
@@ -84,7 +87,7 @@ if query != "":
             print("Found:", image_scores[mid][0], "-", round(mid_value, 2), "% sky")
             found = True
             break
-        # list is sorted from high → low
+        # list is sorted high → low
         elif mid_value < target:
             last = mid - 1
         else:
