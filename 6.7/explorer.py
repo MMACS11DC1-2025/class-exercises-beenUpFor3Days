@@ -32,10 +32,14 @@ image_files = (
 #function to see if the pixle is white or blue
 def is_target_feature(pixel):
     r, g, b = pixel
-    if b >= 120 and b >= r + 20 and b >= g + 20 and r <= 220 and g <= 220:
+    brightness = (r + g + b) // 3
+    if brightness > 210:          
+        return False
+    if b >= 90 and b >= r + 10 and b >= g + 10 and r <= 230 and g <= 230:
         return True
     else:
         return False
+
 #selection sort
 def selection_sort(data):
     n = len(data)
@@ -61,10 +65,13 @@ def binary_search(data, target):
         else:
             first = mid + 1
     return -1
+
 #defins image_scores as a list
 image_scores = []
+
 #starts prosessing timer
 start_time = time.time()
+
 #for loop to get all the images
 for filename in image_files:
     print("Processing:", filename)
@@ -97,8 +104,10 @@ for item in top5:
     name = item[0]
     percent = item[1]
     print("{} : {}% sky".format(name, percent))
+
+
 #find the picture based off the users input of sky %
-answer = input("\nEnter sky % to search for (exact integer shown, or press Enter to skip): ")
+answer = input("\nEnter sky % to search for: ")
 if answer != "":
     target = int(answer)
     index = binary_search(image_scores, target)
